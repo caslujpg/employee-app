@@ -132,4 +132,4 @@ src/
 
 ## 💻 Desenvolvido por
 
-**Caslu Software** — [Fale comigo](https://wa.me/5527997925255)
+**[Caslu Software](https://wa.me/5527997925255)**
