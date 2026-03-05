@@ -103,7 +103,7 @@ export function EmployeeForm({
                 <FieldWrapper>
                   <RequiredLabel>E-mail</RequiredLabel>
                   <FormControl>
-                    <Input placeholder="joao@empresa.com" {...field} />
+                    <Input placeholder="helio@puntu.com" {...field} />
                   </FormControl>
                   <FormMessage className="absolute -bottom-0 left-0 text-xs" />
                 </FieldWrapper>
