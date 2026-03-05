@@ -36,8 +36,14 @@ npm install
 # Inicie o servidor de desenvolvimento
 npm run dev
 
+# Credenciais
+login: admin@puntu.com
+senha: admin123
+
 ```
 Acesse [http://localhost:5173](http://localhost:5173) no navegador.
+
+
 
 ---
 
