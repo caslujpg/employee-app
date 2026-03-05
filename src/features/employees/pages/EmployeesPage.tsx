@@ -71,7 +71,7 @@ export function EmployeesPage({
                 : ""
             }`}
           >
-            <CardContent className="flex items-center gap-4 p-4">
+            <CardContent className="flex items-center gap-4">
               <Avatar className="h-11 w-11 shrink-0">
                 <AvatarFallback className="bg-primary/10 text-primary font-semibold text-sm">
                   {getInitials(employee.name)}

@@ -57,8 +57,8 @@ export function EmployeeDetailsPage({
         Voltar
       </Button>
 
-      <Card>
-        <CardHeader className="pb-4">
+      <Card className="gap-0">
+        <CardHeader className="pb-6">
           <div className="flex items-center gap-4">
             <Avatar className="h-16 w-16">
               <AvatarFallback className="text-xl bg-blue-100 text-blue-700 font-bold">
@@ -75,9 +75,7 @@ export function EmployeeDetailsPage({
           </div>
         </CardHeader>
 
-        <Separator />
-
-        <CardContent className="pt-6 space-y-6">
+        <CardContent className="space-y-6">
           <div>
             <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-4">
               Dados Pessoais
