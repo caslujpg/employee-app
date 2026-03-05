@@ -54,7 +54,7 @@ export function EmployeeForm({
                 <FieldWrapper>
                   <RequiredLabel>Nome completo</RequiredLabel>
                   <FormControl>
-                    <Input placeholder="João da Silva" {...field} />
+                    <Input placeholder="Hélio delfino" {...field} />
                   </FormControl>
                   <FormMessage className="absolute -bottom-0 left-0 text-xs" />
                 </FieldWrapper>
