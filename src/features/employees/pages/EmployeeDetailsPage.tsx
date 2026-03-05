@@ -1,23 +1,20 @@
 import { Employee } from "@/types";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   ArrowLeft,
-  Mail, User,
+  Mail,
+  User,
   Briefcase,
   Hash,
   Home,
   Building2,
   Map,
-  Flag
+  Flag,
 } from "lucide-react";
+import { getInitials } from "@/lib/getInitials";
 
 interface EmployeeDetailsPageProps {
   employee: Employee;
@@ -48,13 +45,6 @@ export function EmployeeDetailsPage({
   employee,
   onBack,
 }: EmployeeDetailsPageProps) {
-  const initials = employee.name
-    .split(" ")
-    .slice(0, 2)
-    .map((n) => n[0])
-    .join("")
-    .toUpperCase();
-
   const formattedDate = new Date(employee.createdAt).toLocaleDateString(
     "pt-BR",
     { day: "2-digit", month: "long", year: "numeric" }
@@ -72,7 +62,7 @@ export function EmployeeDetailsPage({
           <div className="flex items-center gap-4">
             <Avatar className="h-16 w-16">
               <AvatarFallback className="text-xl bg-blue-100 text-blue-700 font-bold">
-                {initials}
+                {getInitials(employee.name)}
               </AvatarFallback>
             </Avatar>
             <div>
@@ -106,26 +96,14 @@ export function EmployeeDetailsPage({
               Endereço
             </h3>
             <div className="grid gap-4 sm:grid-cols-2">
-              <Detail
-                icon={Hash}
-                label="CEP"
-                value={employee.address.cep}
-              />
-              <Detail
-                icon={Home}
-                label="Rua"
-                value={employee.address.street}
-              />
+              <Detail icon={Hash} label="CEP" value={employee.address.cep} />
+              <Detail icon={Home} label="Rua" value={employee.address.street} />
               <Detail
                 icon={Building2}
                 label="Bairro"
                 value={employee.address.neighborhood}
               />
-              <Detail
-                icon={Map}
-                label="Cidade"
-                value={employee.address.city}
-              />
+              <Detail icon={Map} label="Cidade" value={employee.address.city} />
               <Detail
                 icon={Flag}
                 label="Estado"

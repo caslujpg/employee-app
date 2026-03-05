@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Eye, Trash2, Users } from "lucide-react";
+import { getInitials } from "@/lib/getInitials";
 
 interface EmployeesPageProps {
   employees: Employee[];
@@ -61,11 +62,11 @@ export function EmployeesPage({
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2">
-        {employees.map((emp) => (
+        {employees.map((employee) => (
           <Card
-            key={emp.id}
+            key={employee.id}
             className={`transition-all hover:shadow-md ${
-              confirmId === emp.id
+              confirmId === employee.id
                 ? "border-destructive/50 bg-destructive/5"
                 : ""
             }`}
@@ -73,24 +74,19 @@ export function EmployeesPage({
             <CardContent className="flex items-center gap-4 p-4">
               <Avatar className="h-11 w-11 shrink-0">
                 <AvatarFallback className="bg-primary/10 text-primary font-semibold text-sm">
-                  {emp.name
-                    .split(" ")
-                    .slice(0, 2)
-                    .map((n) => n[0])
-                    .join("")
-                    .toUpperCase()}
+                  {getInitials(employee.name)}
                 </AvatarFallback>
               </Avatar>
 
               <div className="flex-1 min-w-0">
                 <p className="font-semibold text-foreground truncate">
-                  {emp.name}
+                  {employee.name}
                 </p>
                 <p className="text-sm text-muted-foreground truncate">
-                  {emp.role}
+                  {employee.role}
                 </p>
                 <p className="text-xs text-muted-foreground/70 truncate">
-                  {emp.email}
+                  {employee.email}
                 </p>
               </div>
 
@@ -99,19 +95,19 @@ export function EmployeesPage({
                   size="icon"
                   variant="ghost"
                   className="h-8 w-8 text-muted-foreground hover:text-foreground"
-                  onClick={() => onSelect(emp.id)}
+                  onClick={() => onSelect(employee.id)}
                   title="Ver detalhes"
                 >
                   <Eye className="h-4 w-4" />
                 </Button>
                 <Button
                   size="icon"
-                  variant={confirmId === emp.id ? "destructive" : "ghost"}
+                  variant={confirmId === employee.id ? "destructive" : "ghost"}
                   className="h-8 w-8"
-                  onClick={() => handleDelete(emp.id)}
+                  onClick={() => handleDelete(employee.id)}
                   onBlur={() => setConfirmId(null)}
                   title={
-                    confirmId === emp.id ? "Confirmar exclusão" : "Excluir"
+                    confirmId === employee.id ? "Confirmar exclusão" : "Excluir"
                   }
                 >
                   <Trash2 className="h-4 w-4" />
