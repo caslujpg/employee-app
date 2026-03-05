@@ -1,73 +1,135 @@
-# React + TypeScript + Vite
+# Quadro — Gerenciador de funcionários
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sistema web para gerenciamento de funcionários, com autenticação, cadastro, listagem e visualização de perfis.
 
-Currently, two official plugins are available:
+## 🖥️ Preview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<p align="center">
+  <img src="./docs/preview.png" width="800" />
+</p>
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Tecnologias
 
-## Expanding the ESLint configuration
+- [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [React Hook Form](https://react-hook-form.com/)
+- [Lucide Icons](https://lucide.dev/)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## ⚙️ Como rodar localmente
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+```bash
+# Clone o repositório
+git clone https://github.com/caslujpg/employee-app.git
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Entre na pasta
+cd employee-app
+
+# Instale as dependências
+npm install
+
+# Inicie o servidor de desenvolvimento
+npm run dev
+
 ```
+Acesse [http://localhost:5173](http://localhost:5173) no navegador.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📁 Estrutura do projeto
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+src/
+├── assets/                   # Imagens e arquivos estáticos
+│   └── logo.svg
+│
+├── components/
+│   └── ui/                   # Componentes reutilizáveis (shadcn + customizados)
+│
+├── features/
+│   ├── auth/
+│   │   ├── components/
+│   │   │   ├── Hero.tsx
+│   │   │   └── LoginForm.tsx
+│   │   ├── hooks/
+│   │   │   ├── useAuth.ts
+│   │   │   └── useLoginForm.ts
+│   │   └── pages/
+│   │       └── LoginPage.tsx
+│   │
+│   └── employees/
+│       ├── components/
+│       │   └── EmployeeForm.tsx
+│       ├── hooks/
+│       │   ├── useEmployeeForm.ts
+│       │   └── useEmployees.ts
+│       └── pages/
+│           ├── CreateEmployeePage.tsx
+│           ├── EmployeeDetailsPage.tsx
+│           └── EmployeesPage.tsx
+│
+├── layout/
+│   └── AppLayout.tsx         # Layout principal da aplicação
+│
+├── lib/                      # Funções utilitárias
+├── types/                    # Tipagens globais
+│
+├── App.tsx
+├── main.tsx
+├── index.css
+└── vite-env.d.ts
+```
+---
+
+## 🧠 Decisões técnicas
+
+- **Arquitetura Feature-Based**  
+  A aplicação foi estruturada por domínio (`auth`, `employees`) ao invés de por tipo de arquivo.  
+  Isso melhora a escalabilidade, reduz acoplamento entre módulos e facilita manutenção e evolução independente de cada feature.
+
+- **Separation of Responsibilities (SoR)**  
+  Cada feature é dividida em:
+  - `components/` → responsabilidade puramente visual  
+  - `hooks/` → lógica e regras de negócio  
+  - `pages/` → composição da interface  
+  Essa separação mantém componentes mais previsíveis, reutilizáveis e fáceis de testar.
+
+- **React Hook Form**  
+  Utilizado para gerenciamento de formulários com validação performática e mínimo de re-renderizações, mantendo inputs desacoplados da lógica de estado.
+
+- **shadcn/ui como base de Design System**  
+  Escolhido por fornecer componentes acessíveis e desacoplados, permitindo total controle de estilo sem dependência rígida de biblioteca visual.
+
+- **Tailwind CSS**  
+  Utilizado para estilização utilitária e consistente com o ecossistema do shadcn, permitindo rapidez no desenvolvimento sem sacrificar padronização visual.
+
+- **Confirmação dupla de exclusão sem modal**  
+  Implementada via estado local (`confirmId`) e controle por `onBlur`, reduzindo complexidade de UI e evitando dependência de modais globais.
+
+- **Split Screen no Login**  
+  Separação visual entre branding e formulário, criando identidade forte e melhorando percepção de produto, além de manter layout adaptável para responsividade.
+
+
+---
+
+## 🔮 O que poderia ser melhorado com mais tempo
+
+- Persistência de dados com backend real (ex: Node.js + PostgreSQL)
+- Autenticação com JWT e refresh token
+- Paginação ou busca/filtro na listagem de funcionários
+- Testes unitários e de integração (Vitest + Testing Library)
+- Dark mode
+- Upload de foto de perfil para o avatar
+- Feedback de loading nos botões durante ações assíncronas
+- Internacionalização (i18n)
+
+---
+
+## 💻 Desenvolvido por
+
+**Caslu Software** — [Fale comigo](https://wa.me/5527997925255)
